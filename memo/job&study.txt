@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+
+
+직업: 	쿠팡맨
+수익:	배송한 집 개수 비례 수당
+		하루 배송 개수 제한
+등급:	일정 개수 이상 배송시 레벨업, 레벨 비례 배정 가구 수 증가
+확률:	매일 배정 가구 수 랜덤
+		낮은 확률로 부상 -> 배송 중단
+구현할 기능: 
+
+
+
+
+package test;
+
+import java.util.Scanner;
+
+public class Day02 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		if (a * 3 - 2 > -1) {
+			System.out.println("내 생각엔 말이야" + (a == 1 ? "a는 1이야" : "1이 아니야"));
+			System.out.println("return true" + a);
+		}else {
+			System.out.println(a);
+			System.out.println("return false" + a);
+		}
+		
+		
+	}
+}
