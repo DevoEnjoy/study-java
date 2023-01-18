@@ -1,4 +1,4 @@
-package codingDojang;
+package level1;
 
 public class PrintNum_471 {
 	public static void main(String[] args) {

@@ -1,11 +1,12 @@
 package domain;
 
-public class BoyVO{
+public class NameDTO {
 	private String name;
 	private int ranking;
 	private int population;
+	private String gender;
 	
-	public BoyVO() {;}
+	public NameDTO() {;}
 
 	public String getName() {
 		return name;
@@ -30,12 +31,17 @@ public class BoyVO{
 	public void setPopulation(int population) {
 		this.population = population;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 	@Override
 	public String toString() {
-		return "BoyVO [name=" + name + ", ranking=" + ranking + ", population=" + population + "]";
+		return "NameDTO [name=" + name + ", ranking=" + ranking + ", population=" + population + "]";
 	}
-	
-	
-	
 }

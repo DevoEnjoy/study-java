@@ -1,4 +1,4 @@
-package codingDojang;
+package level1;
 
 public class BoardPaging_406 {
 	public static int paging(int allBoards, int boardsPerPage) {

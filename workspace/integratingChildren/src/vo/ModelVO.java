@@ -1,11 +1,9 @@
-package domain;
+package vo;
 
-public class BoyVO{
+public class ModelVO {
 	private String name;
 	private int ranking;
 	private int population;
-	
-	public BoyVO() {;}
 
 	public String getName() {
 		return name;
@@ -33,9 +31,7 @@ public class BoyVO{
 
 	@Override
 	public String toString() {
-		return "BoyVO [name=" + name + ", ranking=" + ranking + ", population=" + population + "]";
+		String str = name + ", " + ranking + ", " + population;
+		return str;
 	}
-	
-	
-	
 }

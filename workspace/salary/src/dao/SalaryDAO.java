@@ -140,17 +140,4 @@ public class SalaryDAO {
 		salaryVO.setLocalTax(Integer.parseInt(arTemp[8]));
 		return salaryVO;
 	}
-
-////	readLine을 SalaryVO타입으로
-//	private static SalaryVO toVo(String line) {
-//		SalaryVO result = new SalaryVO();
-//		result.setSalary(Integer.parseInt(removeComma(line.split("   ")[0]).getSalary()));
-//		
-//		
-//		
-//		
-//		
-//		return result;
-//	}
-
 }

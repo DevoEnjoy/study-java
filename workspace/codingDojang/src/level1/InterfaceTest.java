@@ -1,4 +1,4 @@
-package codingDojang;
+package level1;
 
 public /* abstract */ interface InterfaceTest {
 	//	강제성 부여

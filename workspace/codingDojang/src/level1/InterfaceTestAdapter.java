@@ -1,4 +1,4 @@
-package codingDojang;
+package level1;
 
 public abstract class InterfaceTestAdapter implements InterfaceTest {
 	@Override
