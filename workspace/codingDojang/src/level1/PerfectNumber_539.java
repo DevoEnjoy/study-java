@@ -7,7 +7,9 @@ public class PerfectNumber_539 {
 //	28=1+2+4+7+14 // 1,2,4,7,14는 각각 28의 약수
 //	입력으로 자연수 N을 받고, 출력으로 N 이하의 모든 완전수를 출력하는 코드를 작성하라.
 	
-//	public static int[] 
+	public static int[] isPerfectNum(int num) {
+		
+	}
 	
 	public static void main(String[] args) {
 		
