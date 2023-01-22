@@ -6,17 +6,18 @@ public class PerfectNumber_539 {
 //	6=1+2+3 // 1,2,3은 각각 6의 약수
 //	28=1+2+4+7+14 // 1,2,4,7,14는 각각 28의 약수
 //	입력으로 자연수 N을 받고, 출력으로 N 이하의 모든 완전수를 출력하는 코드를 작성하라.
-	
-	public static int[] isPerfectNum(int num) {
-		
+
+	public static int getFactorSum(int num) {
+		int result = 0;
+		if(num == 0 || num == 1) {return 0;}
+		for (int i = 0; i < num; i++) {
+			if (i == 0) {continue;}
+			if (num % i == 0) {result += i;}
+		}
+		return result;
 	}
-	
+
 	public static void main(String[] args) {
-		
-		
-		
-		
-		
-		
+
 	}
 }
