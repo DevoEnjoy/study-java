@@ -1,4 +1,4 @@
-package level1;
+package test;
 
 public abstract class InterfaceTestAdapter implements InterfaceTest {
 	@Override

@@ -1,4 +1,4 @@
-package level1;
+package test;
 
 public /* abstract */ interface InterfaceTest {
 	//	강제성 부여
