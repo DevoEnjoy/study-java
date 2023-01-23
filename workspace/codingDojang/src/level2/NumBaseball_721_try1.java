@@ -3,7 +3,7 @@ package level2;
 import java.util.Random; // 임의의 수를 입력하기 위한 랜덤 임포트
 import java.util.Scanner; // 플레이어 입력을 위한 스캐너 임포트
 
-public class NumBaseball_721 { // 클래스 이름은 게임명
+public class NumBaseball_721_try1 { // 클래스 이름은 게임명
     public static void main(String[] args) { // 메인메서드 시작
         Random r = new Random(); // 랜덤메서드 객체 선언
         Scanner sc = new Scanner(System.in); // 스캐너메서드 객체 선언
