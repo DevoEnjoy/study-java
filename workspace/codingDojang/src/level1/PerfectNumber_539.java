@@ -41,8 +41,11 @@ public class PerfectNumber_539 {
 //		PerfectNumber_539 isP = new PerfectNumber_539();
 //		isP.isPerfectNums(inputNum).stream().filter(v -> v != 0 && v != 1).forEach(System.out::println);
 		
+		//	참고 코드
 //		num= int(input("숫자를 입력하시오 : "))
 //		print([x for x in range(1, num+1) if x==sum(y for y in range(1, x) if x%y==0)])
+		
+		//	참고한 코드를 기반으로 한 줄 코드 만들어봄
 		IntStream.range(1, inputNum+1).filter(v -> v == IntStream.range(1, v).filter(v2 -> v%v2==0).sum()).forEach(System.out::println);
 		
 		

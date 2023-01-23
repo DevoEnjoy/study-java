@@ -43,7 +43,7 @@ public class Restaurant {
 		return arListResult;
 
 	}
-	
+
 //	오버로딩 적극 활용
 
 //	- 음식 종류 수정 후 가격 10% 상승(이미 수정된 Food 객체를 받음)
@@ -105,5 +105,25 @@ public class Restaurant {
 	public int getCountByKind(String kind) {
 		return findAllByKind(kind).size();
 	}
+
+	public void update(Food food) {
+		for (Food foodInDataBase : foods) {
+			if(foodInDataBase.getName().equals(food.getName())) {
+				foodInDataBase.setKind(food.getKind());
+				foodInDataBase.setPrice((int)(foodInDataBase.getPrice()*1.1));
+			}
+		}
+	}
+	
+	public void update(Food food, String newKind) {
+		for (Food dbFood : foods) {
+			if(dbFood.getName().equals(food.getName())) {
+				modifyKind(dbFood, newKind);
+				modifyPrice(dbFood, 1.1);
+				break;
+			}
+		}
+	}
+	
 
 }
