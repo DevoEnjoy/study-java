@@ -359,7 +359,7 @@ public class UserDAO {
 			System.out.println("L352 getRecommenderCount() SQL문 오류");
 			e.printStackTrace();
 		} finally {
-			try {
+			try {                                                                                                      
 				if (resultSet != null) {
 					resultSet.close();
 				}
@@ -435,8 +435,10 @@ public class UserDAO {
 		int i = 0;
 	    //	추천한 사람의 아이디로 전체 정보를 조회한다.
 		String query = "SELECT USER_ID, USER_NAME, USER_PASSWORD, USER_PHONE, USER_NICKNAME, USER_EMAIL, USER_ADDRESS, USER_BIRTH, USER_GENDER, USER_RECOMMENDER_ID, USER_ID FROM TBL_USER "
-				+ "WHERE USER_ID = " + "("
-				+ "SELECT NVL(USER_RECOMMENDER_ID, \'\') FROM TBL_USER " + "WHERE USER_IDENTIFICATION = ?" + ")";
+				+ "WHERE USER_ID = "
+				+ "("
+				+ "SELECT NVL(USER_RECOMMENDER_ID, \'\') FROM TBL_USER " + "WHERE USER_IDENTIFICATION = ?"
+				+ ")";
 		UserVO userVO = null;
 
 		try {
