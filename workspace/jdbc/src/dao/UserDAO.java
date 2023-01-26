@@ -26,7 +26,7 @@ public class UserDAO {
 			resultSet = preparedStatement.executeQuery();
 
 			resultSet.next();
-			result = resultSet.getInt(1) == 0;
+			result = resultSet.getInt(1) == 0;	// 중복이 없으면 true 리턴
 
 		} catch (SQLException e) {
 			System.out.println("checkId(String) SQL문 오류");
@@ -60,20 +60,21 @@ public class UserDAO {
 		try {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(++i, userVO.getUserIdentification());
-			preparedStatement.setString(++i, userVO.getUserName());
-			preparedStatement.setString(++i, encrypt(userVO.getUserPassword()));
-			preparedStatement.setString(++i, userVO.getUserPhone());
-			preparedStatement.setString(++i, userVO.getUserNickname());
-			preparedStatement.setString(++i, userVO.getUserEmail());
-			preparedStatement.setString(++i, userVO.getUserAddress());
-			preparedStatement.setString(++i, userVO.getUserBirth());
-			preparedStatement.setString(++i, userVO.getUserGender());
-			preparedStatement.setString(++i, userVO.getUserRecommenderId());
+			preparedStatement.setString(++i, userVO.getUserIdentification());	// 1
+			preparedStatement.setString(++i, userVO.getUserName());				// 2
+//			preparedStatement.setString(++i, encrypt(userVO.getUserPassword()));// 3
+			preparedStatement.setString(++i, userVO.getUserPassword());			// 3
+			preparedStatement.setString(++i, userVO.getUserPhone());			// 4
+			preparedStatement.setString(++i, userVO.getUserNickname());			// 5
+			preparedStatement.setString(++i, userVO.getUserEmail());			// 6
+			preparedStatement.setString(++i, userVO.getUserAddress());          // 7
+			preparedStatement.setString(++i, userVO.getUserBirth());            // 8
+			preparedStatement.setString(++i, userVO.getUserGender());           // 9
+			preparedStatement.setString(++i, userVO.getUserRecommenderId());    // 10
 
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("UserDAO Line75");
+			System.out.println("L55 join()");
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,12 +99,13 @@ public class UserDAO {
 //	로그인
 	public Long login(String userIdentification, String userPassword) {
 		String query = "SELECT USER_ID FROM TBL_USER WHERE USER_IDENTIFICATION = ? AND USER_PASSWORD = ?";
-		Long userId = 0L;
+		Long userId = -1L;
 		try {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, userIdentification);
-			preparedStatement.setString(2, encrypt(userPassword));
+//			preparedStatement.setString(2, encrypt(userPassword));
+			preparedStatement.setString(2, userPassword);
 			resultSet = preparedStatement.executeQuery();
 
 //	          DB에서 조회된 행이 있다면
@@ -134,31 +136,31 @@ public class UserDAO {
 	}
 
 //	암호화
-	public String encrypt(String password) {
-		String encryptedPw = "";
-		for (String str : password.split("")) {
-			encryptedPw += String.valueOf(str.charAt(0)+ KEY);
-		}
-		return encryptedPw;
-	}
-	
+//	public String encrypt(String password) {
+//		String encryptedPw = "";
+//		for (String str : password.split("")) {
+//			encryptedPw += String.valueOf(str.charAt(0) + KEY);
+//		}
+//		return encryptedPw;
+//	}
+//	
 //	복호화
-	public String dencrypt(String encryptedPw) {
-		String dencryptedPw = "";
-		for (String str : encryptedPw.split("")) {
-			dencryptedPw += String.valueOf(str.charAt(0) - KEY);
-			
-		}
-		return dencryptedPw;
-	}
+//	public String dencrypt(String encryptedPw) {
+//		String dencryptedPw = "";
+//		for (String str : encryptedPw.split("")) {
+//			dencryptedPw += String.valueOf(str.charAt(0) - KEY);
+//			
+//		}
+//		return dencryptedPw;
+//	}
 	
 //	회원탈퇴
-	public void delete(int userId) {
+	public void delete(Long userId) {
 		String query = "DELETE FROM TBL_USER WHERE USER_NUMBER = ?";
 		try {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, userId);
+			preparedStatement.setLong(1, userId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("delete() SQL문 오류");
@@ -194,7 +196,7 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("findIdByUserPhoneNumber() SQL문 오류");
+			System.out.println("L181 findIdByUserPhoneNumber() SQL문 오류");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -215,19 +217,22 @@ public class UserDAO {
 		return userId;
 	}
 
+	
+	
 //	비밀번호 변경
-	public void updateUserPassword(String userId, String userPassword) {
+	public void updateUserPassword(String userId, String newUserPassword) {
 //	      아이디로 조회하여 기존 비밀번호를 새로운 비밀번호로 변경한다.
 		String query = "UPDATE TBL_USER SET USER_PASSWORD = ? WHERE USER_ID = ?";
 		try {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, encrypt(userPassword));
+//			preparedStatement.setString(1, encrypt(newUserPassword));
+			preparedStatement.setString(1, newUserPassword);
 			preparedStatement.setString(2, userId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("updateUserPassword() SQL 오류");
+			System.out.println("L230 updateUserPassword() SQL 오류");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -255,7 +260,8 @@ public class UserDAO {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(++i, userVO.getUserName());
-			preparedStatement.setString(++i, encrypt(userVO.getUserPassword()));
+//			preparedStatement.setString(++i, encrypt(userVO.getUserPassword()));
+			preparedStatement.setString(++i, userVO.getUserPassword());
 			preparedStatement.setString(++i, userVO.getUserPhone());
 			preparedStatement.setString(++i, userVO.getUserNickname());
 			preparedStatement.setString(++i, userVO.getUserEmail());
@@ -266,7 +272,7 @@ public class UserDAO {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("update() SQL문 오류");
+			System.out.println("L269 update() SQL문 오류");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -300,6 +306,7 @@ public class UserDAO {
 				userVO.setUserId(resultSet.getLong(++i));
 				userVO.setUserIdentification(resultSet.getString(++i));
 				userVO.setUserName(resultSet.getString(++i));
+//				userVO.setUserPassword(dencrypt(resultSet.getString(++i)));
 				userVO.setUserPassword(resultSet.getString(++i));
 				userVO.setUserPhone(resultSet.getString(++i));
 				userVO.setUserNickname(resultSet.getString(++i));
@@ -311,7 +318,7 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("select(Long) SQL문 오류");
+			System.out.println("L314 select(Long) SQL문 오류");
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -349,7 +356,7 @@ public class UserDAO {
 			recommenderCount = resultSet.getInt(1);
 
 		} catch (SQLException e) {
-			System.out.println("getRecommenderCount() SQL문 오류");
+			System.out.println("L352 getRecommenderCount() SQL문 오류");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -381,11 +388,11 @@ public class UserDAO {
 			preparedStatement.setString(1, userId);
 			resultSet = preparedStatement.executeQuery();
 
-//		         몇 명이 추천했을 지 알 수 없기 때문에 더 이상 결과가 없을 때 까지 하나씩 행을 가져온다.
+			//	몇 명이 추천했을지 알 수 없기 때문에 더 이상 결과가 없을 때까지 하나씩 행을 가져온다.
 			while (resultSet.next()) {
 				UserVO userVO = new UserVO();
 
-//		            각 행의 전체 정보를 userVO 객체에 담아준다.
+				//	각 행의 전체 정보를 userVO 객체에 담아준다.
 				userVO.setUserId(resultSet.getLong(++i));
 				userVO.setUserName(resultSet.getString(++i));
 				userVO.setUserPassword(resultSet.getString(++i));
@@ -403,7 +410,7 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("getRecommenderCount() SQL문 오류");
+			System.out.println("L406 getRecommenderCount() SQL문 오류");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -423,13 +430,12 @@ public class UserDAO {
 		return users;
 	}
 
-//	내가 추천한 사람
+	//	내가 추천한 사람(하나)
 	public UserVO getRecommender(String userIdentification) {
 		int i = 0;
-//	      (2)추천한 사람의 아이디로 전체 정보를 조회한다.
+	    //	추천한 사람의 아이디로 전체 정보를 조회한다.
 		String query = "SELECT USER_ID, USER_NAME, USER_PASSWORD, USER_PHONE, USER_NICKNAME, USER_EMAIL, USER_ADDRESS, USER_BIRTH, USER_GENDER, USER_RECOMMENDER_ID, USER_ID FROM TBL_USER "
 				+ "WHERE USER_ID = " + "("
-//	            ▲(1)회원의 아이디로 추천한 사람의 아이디를 조회한다. 만약 NULL일 경우 빈 문자열로 처리한다.
 				+ "SELECT NVL(USER_RECOMMENDER_ID, \'\') FROM TBL_USER " + "WHERE USER_IDENTIFICATION = ?" + ")";
 		UserVO userVO = null;
 
@@ -455,7 +461,7 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("getRecommenderCount() SQL문 오류");
+			System.out.println("L458 getRecommenderCount() SQL문 오류");
 			e.printStackTrace();
 		} finally {
 			try {
