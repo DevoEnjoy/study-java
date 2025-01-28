@@ -50,6 +50,10 @@ public class InheritanceTest1 {
 
 	public static void main(String[] args) {
 		Monkey monkey = new Monkey();
+		monkey.walk();
+		monkey.shakeTail();
+		monkey.sleep();
+		
 		
 	}
 }

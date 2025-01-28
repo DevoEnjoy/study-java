@@ -17,5 +17,6 @@ public class MethodTest {
 		int result = mt.multiple(1, 3);
 		result += 9;
 		System.out.println(result);
+		
 	}
 }
